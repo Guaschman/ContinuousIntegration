@@ -1,5 +1,0 @@
-install: apt-get update && apt-get install -y python3.6
-
-syntax-check: python3.6 main.py
-
-run-tests: python3.6 -m unittest lic_test.py
