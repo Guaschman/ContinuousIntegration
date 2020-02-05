@@ -2,9 +2,7 @@ myConfig = require("./config.json")
 install = myConfig.install
 syntax = myConfig.syntax
 tests = myConfig.tests
-
 const { execSync } = require("child_process")
-
 function executeEverything() {
     return run(install) && run(syntax) && run(tests)
 }
@@ -15,7 +13,8 @@ function run(command) {
         return true
     }
     try {
-        res = execSync(command);
+        res = execSync(command,
+             {cwd: '../Lab1'});
         obj.logs.push(res.toString())
     } catch(error) {
         //error = error.message.split("")[0]
