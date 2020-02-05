@@ -21,5 +21,8 @@
     "express": "^4.17.1",
     "firebase": "^7.8.0",
     "nodemon": "^2.0.2"
+  },
+  "devDependencies": {
+    "mocha": "^7.0.1"
   }
 }
