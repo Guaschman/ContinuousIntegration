@@ -1,5 +1,5 @@
 const request = require('request')
-const config = require('./config.json')
+const config = require('./config_server.json')
 
 function get_sha(req) {
     var sha = req.body.head_commit.id
