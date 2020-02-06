@@ -9,10 +9,12 @@ const fs = require('fs');
 const executeBuild = require('./executeBuild.js')
 
 app.use(bodyParser.json())
+
 /*
     Handles web-hooks POST request.
 */
 app.post('/', (req, res) => {
+
 /*
     Example set_status 
     Note that status can be one of error, failure, pending, or success
@@ -21,6 +23,7 @@ app.post('/', (req, res) => {
     helper.set_status(req, 'pending')
     res.send('finished');
 })
+
 app.get('/', (req, res) => res.send('Hello World!'))
 
 
