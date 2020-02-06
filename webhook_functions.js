@@ -16,11 +16,12 @@ function set_status(req, status) {
 
     url = get_url(req)
     sha = get_sha(req)
+    var repo_id = req.body.repository.id
     var res
 
     status = {
         state: status,
-        target_url: config['database'] + "/" + sha,
+        target_url: config['database'] + "/" + repo_id + + "/" + sha,
         description: "The build is " + status,
         context: "CI/group-7"
     } 

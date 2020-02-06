@@ -1,4 +1,4 @@
 {
     "token": "Instert your OAUTH key here",
-    "database": "https://fabian's/awesome/firebase/database"
+    "database": "https://aws_ip:3002/repo"
 }
