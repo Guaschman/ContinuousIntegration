@@ -29,13 +29,19 @@ function SingleRepo(props){
 
     function renderBuilds(){
         return builds.map((b, i) => {
-            return <li style={{'cursor': 'pointer'}} key={i} onClick={() => setModal({trigger: true, data: b})} >{b.build.head_commit.id}</li>
+            return <li 
+                    style={{'cursor': 'pointer'}} 
+                    key={i} 
+                    onClick={() => setModal({trigger: true, data: b})}
+                    >
+                        <h2>{b.build.head_commit.id}</h2>                        
+                </li>
         })
     }
 
     return(
         <div>
-            <ul>
+            <ul style={{'listStyle': 'none'}}>
                 {builds != null ? renderBuilds() : null}
                 {modal.trigger != false ? 
                 <Modal isOpen={modal.trigger}>
