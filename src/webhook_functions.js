@@ -1,5 +1,4 @@
-const request = require('request')
-const config = require('./config_server.json')
+const config = require('../config_server.json')
 
 function get_sha(req) {
     var sha = req.body.head_commit.id
@@ -8,16 +7,13 @@ function get_sha(req) {
 
 function get_url(req) {
     var sha = get_sha(req)
-    url = 'https://api.github.com/repos/' + req.body.repository.full_name + '/statuses/' + sha
-    return url
+    return 'https://api.github.com/repos/' + req.body.repository.full_name + '/statuses/' + sha
 }
 
-function set_status(req, status) {
-
-    url = get_url(req)
-    sha = get_sha(req)
+function build_status_response(req, status) {
+    var url = get_url(req)
+    var sha = get_sha(req)
     var repo_id = req.body.repository.id
-    var res
 
     status = {
         state: status,
@@ -28,7 +24,7 @@ function set_status(req, status) {
 
     var token = "Bearer " + config['token']
 
-    request({
+    return {
         url: url,
         method: "POST",
         json: true,
@@ -38,20 +34,12 @@ function set_status(req, status) {
             'Authorization': token
         },
         body: status
-    }, function (error, response, body) {
-            if (!error && response.statusCode == 200) {
-                console.log(body);
-            }
-            res = response
-    })
+    }
 
-
-    
-    return res
 }
 
 module.exports = {
     get_sha,
     get_url,
-    set_status
+    build_status_response
 }

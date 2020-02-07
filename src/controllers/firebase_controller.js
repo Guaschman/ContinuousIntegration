@@ -17,9 +17,9 @@ const database = firebase.database();
 const repo_path = database.ref('/repos/');
 const build_path = database.ref('/builds/');
 
-/*
-    Check if Repository exist in firebase under /repos/ path.
-*/
+/**
+  *  Check if Repository exist in firebase under /repos/ path.
+	*/
 async function checkRepo(repo_id){
     var exist = false;
     await repo_path.child(`${repo_id}/`).once('value', snapshot => {
@@ -28,29 +28,32 @@ async function checkRepo(repo_id){
     return exist;
 }
 
-/*
-    Set repository information in firebase under /repos/ path.
-*/
+/**
+  * Set repository information in firebase under /repos/ path.
+	*/
 function addRepo(repo_id, data){
     repo_path.child(`${repo_id}/`).set(data)
 }
 
-/*
-    Add build and logs under specific specific repository id under /build/ path.
-*/
+/**
+  * Add build and logs under specific specific repository id under /build/ path.
+	*/
 function addBuild(repo_id, body, headers, log_build) {
-    data = {
+    var data = {
         'type': headers["x-github-event"],
         'log': log_build,
         'build': body
     }
     const child_key_commit = body.head_commit.id
-    build_path.child(repo_id).child(child_key_commit).set(data);
+		console.log(repo_id)
+		console.log(child_key_commit)
+		
+    build_path.child(repo_id).child(child_key_commit).set(JSON.parse(JSON.stringify(data)));
 }
 
-/*
-    Get all the repositories and the information about them.
-*/
+/**
+  * Get all the repositories and the information about them.
+	*/
 async function getRepos(){
     var data = null;
     try {
@@ -65,9 +68,9 @@ async function getRepos(){
     
 }
 
-/*
-    Get all the builds from a specific repository id.
-*/
+/**
+ * Get all the builds from a specific repository id.
+ */
 async function getBuilds(repo_id){
     var data = null;
     try {
@@ -81,9 +84,9 @@ async function getBuilds(repo_id){
     }
 }
 
-/*
-    Get build from repository id and build id(head_commit.id)
-*/
+/**
+ * Get build from repository id and build id(head_commit.id)
+ */
 async function getBuild(repo_id, build_id) {
     var data = null;
     try {

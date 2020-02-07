@@ -4,8 +4,8 @@
   "description": "Continuous Integration Server",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/server.js",
+    "test": "mocha tests/*.js",
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,8 @@
     "express": "^4.17.1",
     "firebase": "^7.8.0",
     "nodemon": "^2.0.2",
-    "request": "^2.88.0"
+    "request": "^2.88.0",
+    "uuid": "^3.4.0"
   },
   "devDependencies": {
     "mocha": "^7.0.1"

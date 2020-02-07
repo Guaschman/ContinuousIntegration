@@ -1,7 +1,7 @@
 var assert = require('assert');
-var helper = require('./webhook_functions.js')
-var push_1_body = require('./mocks/webhooks/push_1')
-var push_master_body = require('./mocks/webhooks/push_to_master.json')
+var helper = require('../src/webhook_functions.js')
+var push_1_body = require('../mocks/webhooks/push_1')
+var push_master_body = require('../mocks/webhooks/push_to_master.json')
 
 describe('Webhook functions', function() {
     describe('get_sha', function() {
@@ -9,6 +9,7 @@ describe('Webhook functions', function() {
             var req = {
             body: push_1_body
         }  
+					// add 9
         assert.equal(helper.get_sha(req), '91ee4c1869a73d86e2004942c6447412794c99ea')
     })
 
