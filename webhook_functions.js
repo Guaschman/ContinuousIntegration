@@ -41,13 +41,20 @@ function set_status(req, status) {
     }, function (error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(body);
-            }
-            res = response
+            }  
     })
 
-
-    
-    return res
+    return {
+        url: url,
+        method: "POST",
+        json: true,
+        headers: {
+            'User-Agent': 'node.js',
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: status
+    }
 }
 
 module.exports = {
