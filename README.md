@@ -1,5 +1,5 @@
 # Continuous Integration
-This project is a continuous integration (CI) server integrated with Github and Firebase. At the moment, it is able to test and build small projects.
+This project is a continuous integration (CI) server integrated with Github and Firebase. At the moment, it is able to test and build small projects. :)
 
 # Running
 To run the server use the command `npm start`.
