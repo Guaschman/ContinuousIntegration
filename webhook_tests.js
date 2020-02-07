@@ -9,8 +9,8 @@ describe('Webhook functions', function() {
             var req = {
             body: push_1_body
         }  
-        assert.equal(helper.get_sha(req), '91ee4c1869a73d86e2004942c6447412794c99ea')
-    })
+            assert.equal(helper.get_sha(req), '91ee4c1869a73d86e2004942c6447412794c99ea')
+        })
 
         it('test 2 : should return sha of the commit', function() {
             var req = {
@@ -25,10 +25,10 @@ describe('Webhook functions', function() {
             var req = {
             body: push_1_body
         }  
-        assert.equal(helper.get_url(req), 
-        'https://api.github.com/repos/DD2480-group7-2020/decide/statuses/91ee4c1869a73d86e2004942c6447412794c99ea'
-        )
-    })
+            assert.equal(helper.get_url(req), 
+            'https://api.github.com/repos/DD2480-group7-2020/decide/statuses/91ee4c1869a73d86e2004942c6447412794c99ea'
+            )
+        })
 
         it('test 2 : should return status url of the commit', function() {
             var req = {
@@ -41,16 +41,20 @@ describe('Webhook functions', function() {
     })
 
     describe('set_status', function() {
-        it('test 1 : should set status of the commit', function() {
-            /*
-                    Will implement tests later
-            */
-    })
+        it('test : should set status of the commit', function() {
+            var req = {
+                body: push_1_body
+            }
 
-        it('test 2 : should set status of the commit', function() {
-            /*
-                Will implement tests later
-            */
+            var sent = helper.set_status(req, "failure")
+            
+            assert.equal(sent.method, "POST")
+            assert.equal(sent.json, true)
+            assert.equal(sent.headers['User-Agent'], "node.js")
+            assert.equal(sent.headers['Content-Type'], "application/json")
+            assert.notEqual(sent.headers.Authorization, "Bearer Instert your OAUTH key here",
+                "Please enter your OAUTH key to the config_server.json"
+            )
         })
     })
 })
