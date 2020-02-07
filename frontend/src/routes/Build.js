@@ -16,15 +16,39 @@ function Build(props) {
             })
         }
     }, [])
+
+    function parseString(data){
+        var logs = []
+        data.map((text, index) => {
+            console.log(text);
+            var splitText = []
+            splitText = text.split('> ');
+            var block = splitText.map((t, i) => {
+                return <p key={i}>{t}</p>
+            })
+            logs.push(
+            <div key={index}>
+                <h3>{index}</h3>
+                <div>{block}</div>
+            </div>);
+        })
+        return <div>{logs}</div>;
+    }
         
 
     function renderBuild(){
 
         return(
             <div>
-                Repository name: {data.build.repository.name} <br/>
-                on: {data.type} <a href={data.build.head_commit.url}>{data.build.head_commit.id}</a> <br/>
-                build: {data.log}
+
+                    <h2>Repository: {data.build.repository.name}</h2>
+                    <p>
+                        on: {data.type} - 
+                        <a href={data.build.head_commit.url}>{data.build.head_commit.id}</a>
+                    </p>
+                    <div>
+                        logs: {parseString(data.log.logs)}<br/>
+                    </div>
             </div>
         )
 
