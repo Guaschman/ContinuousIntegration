@@ -39,6 +39,24 @@ function SingleRepo(props){
         })
     }
 
+    function parseString(data){
+        var logs = []
+        data.map((text, index) => {
+            console.log(text);
+            var splitText = []
+            splitText = text.split('> ');
+            var block = splitText.map((t, i) => {
+                return <p key={i}>{t}</p>
+            })
+            logs.push(
+            <div key={index}>
+                <h3>{index}</h3>
+                <div>{block}</div>
+            </div>);
+        })
+        return <div>{logs}</div>;
+    }
+
     return(
         <div>
             <ul style={{'listStyle': 'none'}}>
@@ -50,9 +68,9 @@ function SingleRepo(props){
                         on: {modal.data.type} - 
                         <a href={modal.data.build.head_commit.url}>{modal.data.build.head_commit.id}</a>
                     </p>
-                    <p>
-                        logs: <br/>
-                    </p>
+                    <div>
+                        logs: {parseString(modal.data.log.logs)}<br/>
+                    </div>
                     <button onClick={ () => setModal({trigger: false})}>Close</button>
                 </Modal> 
                 : ''}
