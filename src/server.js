@@ -1,31 +1,38 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const request = require('request')
+
 const firebase_controller = require('./controllers/firebase_controller')
-var helper = require('./webhook_functions.js')
+const helper = require('./webhook_functions.js')
+const executeBuild = require('./executeBuild.js')
 
 const app = express()
 const port = 3001
-const fs = require('fs');
-const executeBuild = require('./executeBuild.js')
 
 app.use(bodyParser.json())
 
 /*
     Handles web-hooks POST request.
 */
-app.post('/', (req, res) => {
-
-/*
-    Example set_status 
-    Note that status can be one of error, failure, pending, or success
-    Don't forget to enter your token to token.json and remove it when push
-*/
-    helper.set_status(req, 'pending')
-    res.send('finished');
+app.post('/', async(req, res) => {
+    var pending_response = helper.build_status_response(req, 'pending')
+    res.send(pending_response);
+    const repository = req.body.repository
+    console.log(repository.ssh_url)
+    var logs = executeBuild.execute(repository.ssh_url)
+    var build_response
+    if (logs.flag) {
+      build_response = helper.build_status_response(req, 'success')
+    } else {
+      build_response = helper.build_status_response(req, 'failure')
+    }
+    request(build_response, function (error, response, body) {
+      if (!error && response.statusCode == 200) {
+        console.error("Faulty request was sent...");
+      }
+    })
+    firebase_controller.storeWebhook(req.body, req.header, logs)
 })
-
-app.get('/', (req, res) => res.send('Hello World!'))
-
 
 /*
     Get all the repositories and the information about them.
@@ -37,13 +44,13 @@ app.get('/repo', async (req, res) => {
     } else {
         res.status(500).send("data empty")
     }
-    
+
 })
 
 /*
     Get all the builds from a specific repository id.
 */
-app.get('/repo/:id', async (req, res, next) => {
+app.get('/repo/:id', async (req, res) => {
     const data = await firebase_controller.getRepoBuilds(req.params.id);
     if(data != null) {
         res.status(200).send(data);
