@@ -18,7 +18,6 @@ app.post('/', async(req, res) => {
     var pending_response = helper.build_status_response(req, 'pending')
     res.send(pending_response);
     const repository = req.body.repository
-    console.log(repository.ssh_url)
     var logs = executeBuild.execute(repository.ssh_url)
     var build_response
     if (logs.flag) {
@@ -26,7 +25,7 @@ app.post('/', async(req, res) => {
     } else {
       build_response = helper.build_status_response(req, 'failure')
     }
-    request(build_response, function (error, response, body) {
+    request(build_response, function (error, response) {
       if (!error && response.statusCode == 200) {
         console.error("Faulty request was sent...");
       }
