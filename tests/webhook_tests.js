@@ -52,9 +52,9 @@ describe('Webhook functions', function() {
             assert.equal(sent.json, true)
             assert.equal(sent.headers['User-Agent'], "node.js")
             assert.equal(sent.headers['Content-Type'], "application/json")
-            //assert.notEqual(sent.headers.Authorization, "Bearer Instert your OAUTH key here",
-            //    "Please enter your OAUTH key to the config_server.json"
-            //)
+            assert.notEqual(sent.headers.Authorization, "Bearer Instert your OAUTH key here",
+                "Please enter your OAUTH key to the config_server.json"
+            )
         })
     })
 })
