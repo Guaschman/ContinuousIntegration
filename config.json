@@ -1,5 +1,0 @@
-{
-    "install": "npm i",
-    "syntax": "npm run lint",
-    "tests": "npm run test"
-}
