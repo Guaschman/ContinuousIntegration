@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, Redirect } from 'react-router-dom';
+import { REST_API_URL } from '../settings/URL';
 
 
 function AllRepos() {
@@ -9,7 +10,7 @@ function AllRepos() {
 
     useEffect( () => {
     // Get all repos
-        fetch('http://localhost:3001/repo').then(response => {
+        fetch(`${REST_API_URL}/repo`).then(response => {
             return response.json()
         }).then(json => {
             var json_array = []
