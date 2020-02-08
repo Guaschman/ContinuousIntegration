@@ -9,7 +9,11 @@ const executeBuild = require('./executeBuild.js')
 const app = express()
 const port = 3001
 
-app.use(bodyParser.json())
+app.use(bodyParser.json(), function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+})
 
 /*
     Handles web-hooks POST request.
@@ -18,7 +22,7 @@ app.post('/', async(req, res) => {
     var pending_response = helper.build_status_response(req, 'pending')
     res.send(pending_response);
     const repository = req.body.repository
-    var logs = executeBuild.execute(repository.ssh_url)
+    var logs = executeBuild.execute(repository.html_url)
     var build_response
     if (logs.flag) {
       build_response = helper.build_status_response(req, 'success')
