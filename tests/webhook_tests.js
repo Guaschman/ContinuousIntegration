@@ -9,7 +9,7 @@ describe('Webhook functions', function() {
             var req = {
               body: push_1_body
             }
-            assert.equal(helper.get_sha(req), '1ee4c1869a73d86e2004942c6447412794c99ea')
+            assert.equal(helper.get_sha(req), '91ee4c1869a73d86e2004942c6447412794c99ea')
         })
 
         it('test 2 : should return sha of the commit', function() {
