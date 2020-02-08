@@ -17,7 +17,7 @@ function build_status_response(req, status) {
 
     status = {
         state: status,
-        target_url: config['database'] + "/" + repo_id + + "/" + sha,
+        target_url: config['database'] + "/" + repo_id + "/" + sha,
         description: "The build is " + status,
         context: "CI/group-7"
     }
